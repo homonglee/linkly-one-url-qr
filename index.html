@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Linkly One — 원클릭 URL 단축기 & QR 생성기</title>
-  <meta name="description" content="긴 URL을 즉시 짧은 링크와 다운로드 가능한 QR코드로 변환하는 1페이지 인터랙티브 앱" />
+  <title>Linkly One — 원본 링크 & QR 생성기</title>
+  <meta name="description" content="입력한 원본 주소로 바로 열리는 링크와 다운로드 가능한 QR코드를 만드는 앱" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     :root{
@@ -15,20 +15,20 @@
     *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 12% 0%,rgba(97,168,255,.32),transparent 30%),radial-gradient(circle at 84% 12%,rgba(105,240,174,.18),transparent 28%),linear-gradient(180deg,#071019 0%,#08131f 52%,#050a10 100%);color:var(--text);min-height:100vh;}
     button,input,select{font:inherit} a{color:inherit}.shell{width:min(1180px,calc(100% - 32px));margin:0 auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.04em}.logo{width:42px;height:42px;border-radius:15px;display:grid;place-items:center;color:#061017;background:conic-gradient(from 180deg,var(--brand),var(--brand2),var(--hot),var(--brand));box-shadow:0 0 34px rgba(105,240,174,.25)}.pill{border:1px solid var(--line);background:rgba(255,255,255,.06);border-radius:999px;padding:9px 14px;color:var(--muted);font-size:13px;backdrop-filter:blur(14px)}
     .hero{display:grid;grid-template-columns:1.02fr .98fr;gap:26px;align-items:stretch;padding:24px 0 70px}.copy,.app,.feature,.download-card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(22px)}.copy{padding:46px;position:relative;overflow:hidden}.copy:after{content:"";position:absolute;right:-140px;bottom:-180px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(105,240,174,.18),transparent 65%)}.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:rgba(105,240,174,.1);border:1px solid rgba(105,240,174,.24);color:#b7ffd7;font-weight:700;font-size:13px}.headline{font-size:clamp(42px,6vw,76px);line-height:.92;margin:24px 0 20px;letter-spacing:-.08em}.headline span{background:linear-gradient(90deg,#fff,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}.sub{font-size:18px;line-height:1.72;color:#c3d1df;margin:0;max-width:660px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{border:0;border-radius:18px;padding:15px 20px;cursor:pointer;font-weight:850;letter-spacing:-.02em;display:inline-flex;gap:10px;align-items:center;justify-content:center;transition:.2s transform,.2s opacity,.2s background}.btn:hover{transform:translateY(-2px)}.btn:active{transform:translateY(0)}.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:var(--ink);box-shadow:0 14px 40px rgba(97,168,255,.24)}.secondary{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}.stat{padding:16px;border-radius:20px;background:rgba(0,0,0,.18);border:1px solid var(--line)}.stat b{display:block;font-size:26px}.stat small{color:var(--muted)}
-    .app{padding:22px;position:relative}.tabs{display:flex;gap:8px;padding:6px;background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:20px;margin-bottom:18px}.tab{flex:1;background:transparent;border:0;color:var(--muted);padding:12px;border-radius:15px;cursor:pointer;font-weight:800}.tab.active{background:rgba(255,255,255,.11);color:#fff}.form{display:grid;gap:14px}.label{display:flex;justify-content:space-between;align-items:center;color:#d9e7f5;font-size:14px;font-weight:800}.hint{font-size:12px;color:var(--muted);font-weight:600}.input-wrap{position:relative}.input,.select{width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(5,10,16,.76);color:#fff;border-radius:18px;padding:17px 18px;outline:none;transition:.2s border,.2s box-shadow}.input:focus,.select:focus{border-color:rgba(105,240,174,.65);box-shadow:0 0 0 4px rgba(105,240,174,.1)}.url-input{padding-right:64px}.paste{position:absolute;right:8px;top:8px;border:0;border-radius:13px;padding:9px 12px;background:rgba(255,255,255,.09);color:#dff;cursor:pointer;font-weight:800}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.toggle-line{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:18px}.switch{width:52px;height:30px;border-radius:999px;background:rgba(255,255,255,.16);padding:3px;cursor:pointer;transition:.2s}.switch i{display:block;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s}.switch.on{background:linear-gradient(135deg,var(--brand),var(--brand2))}.switch.on i{transform:translateX(22px)}.utm{display:none;grid-template-columns:1fr 1fr;gap:12px}.utm.show{display:grid}.qr-controls{display:none;grid-template-columns:1fr 1fr;gap:12px}.qr-controls.show{display:grid}.result{margin-top:18px;padding:18px;border-radius:24px;background:linear-gradient(180deg,rgba(105,240,174,.1),rgba(97,168,255,.06));border:1px solid rgba(105,240,174,.24);display:none}.result.show{display:block;animation:pop .35s ease}.result-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.status{font-size:12px;color:#b8ffd9;font-weight:900}.short-box{display:flex;gap:10px;align-items:center;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:18px;padding:12px}.short-box code{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;color:#fff}.iconbtn{border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;padding:10px 12px;cursor:pointer}.qr-card{margin-top:14px;display:grid;grid-template-columns:164px 1fr;gap:16px;align-items:center}.qr-stage{width:164px;height:164px;border-radius:28px;background:#fff;display:grid;place-items:center;padding:14px;box-shadow:0 14px 40px rgba(0,0,0,.28)}.download-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#eafff2;color:#071019;padding:13px 17px;border-radius:16px;font-weight:900;opacity:0;pointer-events:none;transition:.25s;z-index:50}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.loader{width:16px;height:16px;border:2px solid rgba(7,16,25,.25);border-top-color:#071019;border-radius:50%;animation:spin .7s linear infinite;display:none}.loading .loader{display:inline-block}.loading .btn-text{opacity:.68}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:0 auto 80px}.feature{padding:24px}.feature .num{width:38px;height:38px;border-radius:14px;display:grid;place-items:center;background:rgba(105,240,174,.12);color:#b7ffd7;font-weight:950;margin-bottom:16px}.feature h3{margin:0 0 10px;font-size:21px}.feature p{margin:0;color:var(--muted);line-height:1.65}.footer{padding:0 0 38px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.error{color:#ffd7df;background:rgba(255,122,144,.1);border:1px solid rgba(255,122,144,.25);padding:12px 14px;border-radius:15px;display:none}.error.show{display:block}@keyframes pop{from{transform:translateY(8px);opacity:.4}to{transform:none;opacity:1}}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:900px){.hero{grid-template-columns:1fr}.copy{padding:30px}.features{grid-template-columns:1fr}.stats,.grid2,.utm,.utm.show,.qr-controls,.qr-controls.show{grid-template-columns:1fr}.qr-card{grid-template-columns:1fr}.qr-stage{margin:auto}.footer{display:block}.nav .pill{display:none}}
+    .app{padding:22px;position:relative}.tabs{display:flex;gap:8px;padding:6px;background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:20px;margin-bottom:18px}.tab{flex:1;background:transparent;border:0;color:var(--muted);padding:12px;border-radius:15px;cursor:pointer;font-weight:800}.tab.active{background:rgba(255,255,255,.11);color:#fff}.form{display:grid;gap:14px}.label{display:flex;justify-content:space-between;align-items:center;color:#d9e7f5;font-size:14px;font-weight:800}.hint{font-size:12px;color:var(--muted);font-weight:600}.input-wrap{position:relative}.input,.select{width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(5,10,16,.76);color:#fff;border-radius:18px;padding:17px 18px;outline:none;transition:.2s border,.2s box-shadow}.input:focus,.select:focus{border-color:rgba(105,240,174,.65);box-shadow:0 0 0 4px rgba(105,240,174,.1)}.url-input{padding-right:64px}.paste{position:absolute;right:8px;top:8px;border:0;border-radius:13px;padding:9px 12px;background:rgba(255,255,255,.09);color:#dff;cursor:pointer;font-weight:800}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.toggle-line{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:18px}.switch{width:52px;height:30px;border-radius:999px;background:rgba(255,255,255,.16);padding:3px;cursor:pointer;transition:.2s}.switch i{display:block;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s}.switch.on{background:linear-gradient(135deg,var(--brand),var(--brand2))}.switch.on i{transform:translateX(22px)}.utm{display:none;grid-template-columns:1fr 1fr;gap:12px}.utm.show{display:grid}.qr-controls{display:none;grid-template-columns:1fr 1fr;gap:12px}.qr-controls.show{display:grid}.result{margin-top:18px;padding:18px;border-radius:24px;background:linear-gradient(180deg,rgba(105,240,174,.1),rgba(97,168,255,.06));border:1px solid rgba(105,240,174,.24);display:none}.result.show{display:block;animation:pop .35s ease}.result-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.status{font-size:12px;color:#b8ffd9;font-weight:900}.short-box{display:flex;gap:10px;align-items:center;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:18px;padding:12px}.short-box code{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;color:#fff}.iconbtn{text-decoration:none;border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;padding:10px 12px;cursor:pointer}.qr-card{margin-top:14px;display:grid;grid-template-columns:164px 1fr;gap:16px;align-items:center}.qr-stage{width:164px;height:164px;border-radius:28px;background:#fff;display:grid;place-items:center;padding:14px;box-shadow:0 14px 40px rgba(0,0,0,.28)}.download-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#eafff2;color:#071019;padding:13px 17px;border-radius:16px;font-weight:900;opacity:0;pointer-events:none;transition:.25s;z-index:50}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.loader{width:16px;height:16px;border:2px solid rgba(7,16,25,.25);border-top-color:#071019;border-radius:50%;animation:spin .7s linear infinite;display:none}.loading .loader{display:inline-block}.loading .btn-text{opacity:.68}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:0 auto 80px}.feature{padding:24px}.feature .num{width:38px;height:38px;border-radius:14px;display:grid;place-items:center;background:rgba(105,240,174,.12);color:#b7ffd7;font-weight:950;margin-bottom:16px}.feature h3{margin:0 0 10px;font-size:21px}.feature p{margin:0;color:var(--muted);line-height:1.65}.footer{padding:0 0 38px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.error{color:#ffd7df;background:rgba(255,122,144,.1);border:1px solid rgba(255,122,144,.25);padding:12px 14px;border-radius:15px;display:none}.error.show{display:block}@keyframes pop{from{transform:translateY(8px);opacity:.4}to{transform:none;opacity:1}}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:900px){.hero{grid-template-columns:1fr}.copy{padding:30px}.features{grid-template-columns:1fr}.stats,.grid2,.utm,.utm.show,.qr-controls,.qr-controls.show{grid-template-columns:1fr}.qr-card{grid-template-columns:1fr}.qr-stage{margin:auto}.footer{display:block}.nav .pill{display:none}}
   </style>
 </head>
 <body>
   <div class="shell">
     <nav class="nav">
       <div class="brand"><div class="logo">↗</div><div>Linkly One</div></div>
-      <div class="pill">1페이지 · 즉시 단축 · QR 다운로드 · 인쇄용 프리셋</div>
+      <div class="pill">1페이지 · 원본 바로 연결 · QR 다운로드 · 인쇄용 프리셋</div>
     </nav>
     <main class="hero">
       <section class="copy">
         <div class="eyebrow">⚡ 매장/이벤트/인쇄물용 원클릭 링크 툴</div>
-        <h1 class="headline">긴 주소를 <span>짧은 링크와 QR</span>로 한 번에.</h1>
-        <p class="sub">웹사이트 주소를 붙여넣으면 단축 링크를 만들고, 포스터·테이블 텐트·영수증·명함에 바로 넣을 수 있는 QR코드를 생성합니다. 컬러, 크기, UTM 캠페인까지 한 화면에서 조정하세요.</p>
+        <h1 class="headline">원본 주소를 <span>직접 링크와 QR</span>로 한 번에.</h1>
+        <p class="sub">웹사이트 주소를 붙여넣으면 중간 사이트 없이 연결되는 링크와 포스터·테이블 텐트·영수증·명함에 바로 넣을 수 있는 QR코드를 생성합니다. 컬러, 크기, UTM 캠페인까지 한 화면에서 조정하세요.</p>
         <div class="hero-actions">
           <a class="btn primary" href="#app">지금 만들어보기 →</a>
           <button class="btn secondary" id="demoBtn">샘플 링크 불러오기</button>
@@ -39,7 +39,7 @@
           <div class="stat"><b>UTM</b><small>캠페인 추적 링크 생성</small></div>
         </div>
       </section>
-      <section class="app" id="app" aria-label="URL 단축 및 QR 생성 앱">
+      <section class="app" id="app" aria-label="원본 링크 및 QR 생성 앱">
         <div class="tabs">
           <button class="tab active" data-tab="basic">빠른 생성</button>
           <button class="tab" data-tab="brand">브랜드 설정</button>
@@ -51,10 +51,10 @@
             <div class="input-wrap"><input class="input url-input" id="longUrl" placeholder="https://your-store.com/promotion/summer-menu?table=poster" autocomplete="url" /><button type="button" class="paste" id="pasteBtn">붙여넣기</button></div>
           </div>
           <div class="grid2 brand-fields" style="display:none">
-            <div><div class="label"><span>원하는 짧은 이름</span><span class="hint">선택</span></div><input class="input" id="slug" placeholder="summer-menu" /></div>
+            <div><div class="label"><span>링크 이름</span><span class="hint">표시용 · 주소 변경 없음</span></div><input class="input" id="slug" placeholder="여름 메뉴 안내" /></div>
             <div><div class="label"><span>사용 위치</span><span class="hint">자동 태그</span></div><select class="select" id="placement"><option>매장 포스터</option><option>테이블 QR</option><option>명함/전단지</option><option>SNS 프로필</option></select></div>
           </div>
-          <div class="toggle-line"><div><b>UTM 캠페인 자동 추가</b><div class="hint">스캔 유입을 GA/애널리틱스에서 구분</div></div><div class="switch" id="utmSwitch" role="switch" aria-checked="false"><i></i></div></div>
+          <div class="toggle-line"><div><b>UTM 캠페인 자동 추가</b><div class="hint">스캔 유입을 GA/애널리틱스에서 구분</div></div><div class="switch" id="utmSwitch" role="switch" aria-checked="false" tabindex="0" aria-label="UTM 캠페인 추가"><i></i></div></div>
           <div class="utm" id="utmFields">
             <input class="input" id="utmSource" placeholder="utm_source (예: offline_qr)" value="offline_qr" />
             <input class="input" id="utmCampaign" placeholder="utm_campaign (예: summer_2026)" value="store_launch" />
@@ -64,11 +64,11 @@
             <div><div class="label"><span>다운로드 크기</span></div><select class="select" id="qrSize"><option value="768">768px · 웹/문서</option><option value="1200">1200px · 포스터</option><option value="1800">1800px · 대형 인쇄</option></select></div>
           </div>
           <div class="error" id="errorBox"></div>
-          <button class="btn primary" id="submitBtn" type="submit"><span class="loader"></span><span class="btn-text">짧은 링크 + QR 만들기</span></button>
+          <button class="btn primary" id="submitBtn" type="submit"><span class="loader"></span><span class="btn-text">직접 링크 + QR 만들기</span></button>
         </form>
         <div class="result" id="result">
           <div class="result-head"><div><div class="status">생성 완료</div><b>아래 링크와 QR을 바로 사용하세요.</b></div><button class="iconbtn" id="resetBtn">새로 만들기</button></div>
-          <div class="short-box"><code id="shortText">—</code><button class="iconbtn" id="copyBtn">복사</button><button class="iconbtn" id="openBtn">열기</button></div>
+          <p id="linkLabel" style="margin:0 0 10px;font-weight:800" hidden></p><div class="short-box"><code id="shortText">—</code><button class="iconbtn" id="copyBtn">복사</button><a class="iconbtn" id="openBtn" target="_blank" rel="noopener noreferrer">열기</a></div>
           <div class="qr-card">
             <div class="qr-stage"><div id="qrcode"></div></div>
             <div>
@@ -82,16 +82,16 @@
     </main>
     <section class="features">
       <article class="feature"><div class="num">1</div><h3>붙여넣는 순간 정리</h3><p>잘못된 URL 형식을 안내하고, UTM 옵션을 켜면 캠페인 파라미터를 자동으로 붙입니다.</p></article>
-      <article class="feature"><div class="num">2</div><h3>브랜드용 표시 링크</h3><p>원하는 짧은 이름을 입력하면 매장 직원도 읽기 쉬운 표시 링크를 함께 보여줍니다.</p></article>
+      <article class="feature"><div class="num">2</div><h3>원본 주소로 바로 연결</h3><p>열기·복사·QR에 모두 동일한 원본 주소를 사용합니다. 링크 이름은 표시용이며 주소는 바뀌지 않습니다.</p></article>
       <article class="feature"><div class="num">3</div><h3>QR 즉시 다운로드</h3><p>PNG는 문서·SNS용, SVG는 인쇄·디자인 툴용으로 내려받을 수 있게 설계했습니다.</p></article>
     </section>
-    <footer class="footer"><span>Prototype by Hermes · 실제 단축은 TinyURL 공개 API 프록시 사용</span><span>임시 터널은 서버가 실행되는 동안만 유지됩니다.</span></footer>
+    <footer class="footer"><span>Linkly One · 원본 주소를 QR에 직접 저장</span><span>UTM을 켠 경우에만 입력 주소에 추적 항목을 추가합니다.</span></footer>
   </div>
   <div class="toast" id="toast">복사했습니다</div>
 <script>
 const $ = s => document.querySelector(s);
 const longUrl = $('#longUrl'), result = $('#result'), errorBox = $('#errorBox'), submitBtn = $('#submitBtn');
-let currentShort = '', currentDisplay = '', qr;
+let currentLink = '', qr;
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
 function validUrl(v){ try{ const u=new URL(v); return ['http:','https:'].includes(u.protocol) && u.hostname.includes('.'); }catch{return false;} }
 function withUtm(url){ const on=$('#utmSwitch').classList.contains('on'); if(!on) return url; const u=new URL(url); const source=$('#utmSource').value.trim()||'offline_qr'; const campaign=$('#utmCampaign').value.trim()||'store_campaign'; u.searchParams.set('utm_source',source); u.searchParams.set('utm_medium','qr'); u.searchParams.set('utm_campaign',campaign); return u.toString(); }
@@ -99,21 +99,40 @@ function clearError(){ errorBox.classList.remove('show'); errorBox.textContent='
 function setTab(name){ document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name)); document.querySelector('.brand-fields').style.display=name==='brand'?'grid':'none'; $('#qrControls').classList.toggle('show',name==='qr'); }
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
 $('#utmSwitch').onclick=()=>{ const s=$('#utmSwitch'); s.classList.toggle('on'); s.setAttribute('aria-checked',s.classList.contains('on')); $('#utmFields').classList.toggle('show',s.classList.contains('on')); };
+$('#utmSwitch').onkeydown=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();$('#utmSwitch').click()}};
 $('#pasteBtn').onclick=async()=>{ try{ longUrl.value=await navigator.clipboard.readText(); toast('클립보드에서 붙여넣었습니다'); }catch{ toast('직접 붙여넣어 주세요'); } };
 $('#demoBtn').onclick=()=>{ longUrl.value='https://www.nousresearch.com/blog/hermes-agent?ref=store-poster&utm_content=long-url-example'; $('#slug').value='hermes-qr'; location.hash='app'; toast('샘플 링크를 불러왔습니다'); };
-$('#qrColor').oninput=()=> currentShort && renderQr(currentShort);
-$('#qrSize').onchange=()=> currentShort && renderQr(currentShort);
+$('#qrColor').oninput=()=> currentLink && renderQr(currentLink);
+$('#qrSize').onchange=()=> currentLink && renderQr(currentLink);
 function renderQr(text){ const box=$('#qrcode'); box.innerHTML=''; const color=$('#qrColor').value || '#071019'; qr = new QRCode(box,{ text, width:136, height:136, colorDark:color, colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.H }); }
-async function shorten(e){ e.preventDefault(); clearError(); let raw=longUrl.value.trim(); if(!validUrl(raw)){ showError('올바른 URL을 입력해 주세요. 예: https://example.com'); return; } let finalUrl=withUtm(raw); submitBtn.classList.add('loading'); submitBtn.disabled=true; try{ const qs=new URLSearchParams({url:finalUrl,slug:$('#slug').value.trim(),campaign:$('#utmCampaign').value.trim()}); const res=await fetch('/api/shorten?'+qs); const data=await res.json(); if(!data.ok) throw new Error(data.error || '생성 실패'); currentShort=data.shortUrl; currentDisplay=data.displayUrl || data.shortUrl; $('#shortText').textContent=currentDisplay; renderQr(currentShort); result.classList.add('show'); toast('짧은 링크와 QR을 생성했습니다'); } catch(err){ showError(err.message); } finally{ submitBtn.classList.remove('loading'); submitBtn.disabled=false; } }
-$('#linkForm').addEventListener('submit',shorten);
-$('#copyBtn').onclick=async()=>{ try{ await navigator.clipboard.writeText(currentShort); toast('실제 단축 링크를 복사했습니다'); }catch{ toast(currentShort); } };
-document.getElementById('openBtn').onclick = () => currentShort && window.open(currentShort,'_blank','noopener');
+function generateLink(e){
+  e.preventDefault();clearError();
+  const raw=longUrl.value.trim();
+  if(!validUrl(raw)){showError('올바른 URL을 입력해 주세요. 예: https://example.com');return}
+  submitBtn.disabled=true;
+  try{
+    const target=withUtm(raw);
+    renderQr(target);
+    currentLink=target;
+    $('#shortText').textContent=target;
+    $('#shortText').title=target;
+    $('#openBtn').href=target;
+    const label=$('#slug').value.trim();$('#linkLabel').textContent=label;$('#linkLabel').hidden=!label;
+    result.classList.add('show');
+    toast('원본 주소로 바로 연결되는 링크와 QR을 생성했습니다');
+  }catch(err){
+    result.classList.remove('show');currentLink='';$('#openBtn').removeAttribute('href');
+    showError('QR을 만들지 못했습니다. 주소가 너무 길지 않은지 확인하고 다시 시도하세요.');
+  }finally{submitBtn.disabled=false}
+}
+$('#linkForm').addEventListener('submit',generateLink);
+$('#copyBtn').onclick=async()=>{if(!currentLink)return;try{await navigator.clipboard.writeText(currentLink);toast('원본 링크를 복사했습니다')}catch{showError('복사하지 못했습니다. 표시된 주소를 직접 선택해 복사하세요.')}};
 </script>
 <script>
-document.getElementById('resetBtn').onclick = () => { result.classList.remove('show'); currentShort=''; document.getElementById('qrcode').innerHTML=''; longUrl.focus(); };
-function qrCanvasAt(size){ const holder=document.createElement('div'); holder.style.position='fixed'; holder.style.left='-9999px'; document.body.appendChild(holder); new QRCode(holder,{ text:currentShort, width:size, height:size, colorDark:document.getElementById('qrColor').value, colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.H }); const canvas=holder.querySelector('canvas'); return {canvas, holder}; }
-document.getElementById('downloadPng').onclick = () => { if(!currentShort) return; const size=parseInt(document.getElementById('qrSize').value,10); const {canvas, holder}=qrCanvasAt(size); setTimeout(()=>{ const a=document.createElement('a'); a.download='linkly-qr.png'; a.href=canvas.toDataURL('image/png'); a.click(); holder.remove(); toast('PNG QR을 다운로드했습니다'); },50); };
-document.getElementById('downloadSvg').onclick = () => { if(!currentShort) return; const size=parseInt(document.getElementById('qrSize').value,10); const {canvas, holder}=qrCanvasAt(size); setTimeout(()=>{ const data=canvas.toDataURL('image/png'); const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><rect width="100%" height="100%" fill="#fff"/><image href="${data}" width="${size}" height="${size}"/></svg>`; const blob=new Blob([svg],{type:'image/svg+xml'}); const a=document.createElement('a'); a.download='linkly-qr.svg'; a.href=URL.createObjectURL(blob); a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); holder.remove(); toast('SVG QR을 다운로드했습니다'); },50); };
+document.getElementById('resetBtn').onclick = () => { result.classList.remove('show'); currentLink=''; document.getElementById('qrcode').innerHTML=''; longUrl.focus(); };
+function qrCanvasAt(size){ const holder=document.createElement('div'); holder.style.position='fixed'; holder.style.left='-9999px'; document.body.appendChild(holder); new QRCode(holder,{ text:currentLink, width:size, height:size, colorDark:document.getElementById('qrColor').value, colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.H }); const canvas=holder.querySelector('canvas'); return {canvas, holder}; }
+document.getElementById('downloadPng').onclick = () => { if(!currentLink) return; const size=parseInt(document.getElementById('qrSize').value,10); const {canvas, holder}=qrCanvasAt(size); setTimeout(()=>{ const a=document.createElement('a'); a.download='linkly-qr.png'; a.href=canvas.toDataURL('image/png'); a.click(); holder.remove(); toast('PNG QR을 다운로드했습니다'); },50); };
+document.getElementById('downloadSvg').onclick = () => { if(!currentLink) return; const size=parseInt(document.getElementById('qrSize').value,10); const {canvas, holder}=qrCanvasAt(size); setTimeout(()=>{ const data=canvas.toDataURL('image/png'); const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><rect width="100%" height="100%" fill="#fff"/><image href="${data}" width="${size}" height="${size}"/></svg>`; const blob=new Blob([svg],{type:'image/svg+xml'}); const a=document.createElement('a'); a.download='linkly-qr.svg'; a.href=URL.createObjectURL(blob); a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); holder.remove(); toast('SVG QR을 다운로드했습니다'); },50); };
 </script>
 </body>
 </html>

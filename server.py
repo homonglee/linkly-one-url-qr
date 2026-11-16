@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlparse, parse_qs, urlencode
-from urllib.request import Request, urlopen
+from urllib.parse import urlparse, parse_qs
 import json
 import os
 import re
 import socket
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CUSTOM_DOMAIN = "https://go.linkly.store"
 
 
 def _json(handler, status, payload):
@@ -55,23 +53,15 @@ class Handler(SimpleHTTPRequestHandler):
             campaign = (qs.get("campaign") or [""])[0].strip()
             if not _valid_url(long_url):
                 return _json(self, 400, {"ok": False, "error": "http:// 또는 https:// 로 시작하는 올바른 URL을 입력해 주세요."})
-            api_url = "https://tinyurl.com/api-create.php?" + urlencode({"url": long_url})
-            try:
-                req = Request(api_url, headers={"User-Agent": "Hermes-Linkly-Preview/1.0"})
-                short_url = urlopen(req, timeout=12).read().decode("utf-8").strip()
-                if not short_url.startswith("http"):
-                    raise RuntimeError(short_url)
-            except Exception as e:
-                return _json(self, 502, {"ok": False, "error": f"단축 링크 생성 API 연결에 실패했습니다: {e}"})
-            display_url = f"{CUSTOM_DOMAIN}/{slug}" if slug else short_url.replace("https://", "")
             return _json(self, 200, {
                 "ok": True,
-                "shortUrl": short_url,
-                "displayUrl": display_url,
-                "qrUrl": short_url,
-                "slug": slug,
+                "shortUrl": long_url,
+                "displayUrl": long_url,
+                "qrUrl": long_url,
+                "targetUrl": long_url,
+                "label": slug,
                 "campaign": campaign,
-                "provider": "TinyURL public API",
+                "provider": "direct",
             })
         return super().do_GET()
 
